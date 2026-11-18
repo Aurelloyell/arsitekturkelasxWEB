@@ -6,6 +6,7 @@ class QuizQuestion {
   final List<String> options;
   final int correctIndex;
   final String explanation;
+  final String? imagePath;
 
   QuizQuestion({
     required this.id,
@@ -13,11 +14,12 @@ class QuizQuestion {
     required this.options,
     required this.correctIndex,
     this.explanation = "",
+    this.imagePath,
   });
 }
 
 // ==========================================
-// 📝 DATA BANK SOAL (50 SOAL)
+// 📝 DATA BANK SOAL (62 SOAL)
 // ==========================================
 
 final List<QuizQuestion> masterQuizList = [
@@ -33,6 +35,7 @@ final List<QuizQuestion> masterQuizList = [
       "Alat-alat pelindung diri"
     ],
     correctIndex: 0, 
+    explanation: "Alat pengobatan dipakai setelah kecelakaan terjadi, sedangkan kelompok lainnya bersifat pencegah.",
   ),
   QuizQuestion(
     id: "q2",
@@ -45,6 +48,7 @@ final List<QuizQuestion> masterQuizList = [
       "Keburukan"
     ],
     correctIndex: 0,
+    explanation: "Kecelakaan adalah kejadian tak terduga dan tidak sengaja yang menimbulkan kerugian materi maupun immateri.",
   ),
   QuizQuestion(
     id: "q3",
@@ -57,6 +61,7 @@ final List<QuizQuestion> masterQuizList = [
       "Alat pelindung dari terpapar radiasi"
     ],
     correctIndex: 0,
+    explanation: "Safety belt menahan pekerja agar tidak jatuh saat bekerja di ketinggian.",
   ),
   QuizQuestion(
     id: "q4",
@@ -69,6 +74,7 @@ final List<QuizQuestion> masterQuizList = [
       "Tenggelam"
     ],
     correctIndex: 0,
+    explanation: "Digigit anjing gila bukan risiko proses kerja konstruksi, jadi tidak termasuk kecelakaan kerja.",
   ),
 
   // --- Macam-macam Bangunan ---
@@ -77,6 +83,7 @@ final List<QuizQuestion> masterQuizList = [
     text: "Salah satu konstruksi yang termasuk dalam jenis bangunan gedung adalah?",
     options: ["Hotel", "Jembatan", "Pelabuhan", "Lapangan parkir", "Jalan"],
     correctIndex: 0,
+    explanation: "Hotel termasuk bangunan gedung, sedangkan jembatan, pelabuhan, dan jalan adalah bangunan infrastruktur.",
   ),
   QuizQuestion(
     id: "q6",
@@ -89,6 +96,7 @@ final List<QuizQuestion> masterQuizList = [
       "Rumah tempat tinggal"
     ],
     correctIndex: 0,
+    explanation: "Kantor bupati adalah bangunan milik negara yang dipakai untuk penyelenggaraan pemerintahan.",
   ),
   QuizQuestion(
     id: "q7",
@@ -101,18 +109,22 @@ final List<QuizQuestion> masterQuizList = [
       "Lajur jalan"
     ],
     correctIndex: 0,
+    explanation: "Median jalan memisahkan lajur lalu lintas dan biasanya ditanami rumput atau tumbuhan.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 15 Tipikal Median Jalan yang diturunkan.jpeg",
   ),
   QuizQuestion(
     id: "q8",
-    text: "Pengertian jembatan adalah?",
+    text: "Konstruksi pada gambar berikut yang berfungsi melewatkan lalu lintas menyeberangi rintangan fisik (seperti sungai atau lembah) adalah?",
     options: [
-      "Konstruksi yang berfungsi untuk melewatkan lalu lintas yang terputus akibat adanya hambatan berupa sungai, lembah, dll",
-      "Konstruksi untuk lalu lintas udara yang tersendat",
-      "Konstruksi untuk lalu lintas air yang tersendat",
-      "Konstruksi untuk pejalan kaki yang tersendat",
-      "Konstruksi untuk mempermudah lalu lintas kendaraan"
+      "Jembatan (Gelagar Baja)",
+      "Konstruksi Terowongan Bawah Tanah",
+      "Dinding Penahan Tanah",
+      "Talud Tebing",
+      "Dermaga Pelabuhan"
     ],
     correctIndex: 0,
+    explanation: "Gelagar baja adalah struktur atas jembatan yang memikul beban dan melewatkan lalu lintas di atas rintangan.",
+    imagePath: "assets/gambar/cp2/Jembatan/Gambar 26 Gelagar Baja.jpeg",
   ),
 
   // --- Kayu ---
@@ -121,6 +133,7 @@ final List<QuizQuestion> masterQuizList = [
     text: "Kayu merupakan salah satu bahan konstruksi yang bersumber dari?",
     options: ["Hutan", "Kebun", "Toko bangunan", "Bangsal kayu", "Semak belukar"],
     correctIndex: 0,
+    explanation: "Kayu berasal dari hutan sebagai bahan baku utama penghasil kayu.",
   ),
   QuizQuestion(
     id: "q10",
@@ -133,6 +146,7 @@ final List<QuizQuestion> masterQuizList = [
       "Ringan"
     ],
     correctIndex: 0,
+    explanation: "Kayu mudah terbakar, sehingga memerlukan perlakuan tahan api pada bangunan.",
   ),
   QuizQuestion(
     id: "q11",
@@ -145,6 +159,7 @@ final List<QuizQuestion> masterQuizList = [
       "Kayu gelondongan"
     ],
     correctIndex: 0,
+    explanation: "Kayu lapis adalah produk kayu olahan yang dibuat dari lembaran veneer yang direkatkan.",
   ),
 
   // --- Beton ---
@@ -159,6 +174,7 @@ final List<QuizQuestion> masterQuizList = [
       "Bahan baku"
     ],
     correctIndex: 0,
+    explanation: "Semen berfungsi sebagai bahan pengikat yang menyatukan pasir, kerikil, dan air menjadi beton.",
   ),
   QuizQuestion(
     id: "q13",
@@ -171,6 +187,7 @@ final List<QuizQuestion> masterQuizList = [
       "Sebagai bahan tambahan"
     ],
     correctIndex: 0,
+    explanation: "Besi tulangan menahan gaya tarik karena beton lemah terhadap gaya tarik.",
   ),
   QuizQuestion(
     id: "q14",
@@ -183,6 +200,7 @@ final List<QuizQuestion> masterQuizList = [
       "1 semen : 3 kerikil : 5 pasir"
     ],
     correctIndex: 0,
+    explanation: "Notasi 1:3:5 berturut-turut adalah perbandingan semen, pasir, dan kerikil.",
   ),
 
   // --- Baja & Logam ---
@@ -197,18 +215,21 @@ final List<QuizQuestion> masterQuizList = [
       "Bisa dibongkar pasang"
     ],
     correctIndex: 0,
+    explanation: "Besi dan baja memang memerlukan perawatan khusus agar tidak berkarat, jadi itu bukan kelebihan.",
   ),
   QuizQuestion(
     id: "q16",
     text: "Yang bukan merupakan jenis-jenis baja profil adalah?",
     options: ["Profil A", "Profil C", "Profil H", "Profil I", "Profil L"],
     correctIndex: 0,
+    explanation: "Profil A bukan jenis baja profil standar; yang umum antara lain profil C, H, I, dan L.",
   ),
   QuizQuestion(
     id: "q17",
     text: "Baja berbentuk lembaran tipis dan lebar disebut?",
     options: ["Baja pelat", "Baja siku", "Baja profil", "Baja batang", "Balok besi"],
     correctIndex: 0,
+    explanation: "Baja pelat berbentuk lembaran tipis dan lebar, berbeda dengan baja profil atau baja batang.",
   ),
 
   // --- MEKTEK (Mekanika Teknik) ---
@@ -223,6 +244,7 @@ final List<QuizQuestion> masterQuizList = [
       "Kolom, kabel dan membran"
     ],
     correctIndex: 0,
+    explanation: "Balok, pelengkung, dan cangkang termasuk elemen struktur kaku yang menahan gaya tanpa perubahan bentuk besar.",
   ),
   QuizQuestion(
     id: "q19",
@@ -235,6 +257,7 @@ final List<QuizQuestion> masterQuizList = [
       "Elemen baja dan kayu"
     ],
     correctIndex: 0,
+    explanation: "Elemen struktur dibedakan menjadi elemen kaku dan elemen tidak kaku berdasarkan perilaku terhadap gaya.",
   ),
   QuizQuestion(
     id: "q20",
@@ -247,6 +270,7 @@ final List<QuizQuestion> masterQuizList = [
       "Baja, bambu dan beton"
     ],
     correctIndex: 0,
+    explanation: "Kayu, beton, dan baja adalah tiga bahan utama pembentuk struktur bangunan.",
   ),
   QuizQuestion(
     id: "q21",
@@ -259,6 +283,7 @@ final List<QuizQuestion> masterQuizList = [
       "Mudah putus"
     ],
     correctIndex: 0,
+    explanation: "Kabel kuat menahan gaya tarik, sehingga cocok untuk jembatan gantung.",
   ),
   QuizQuestion(
     id: "q22",
@@ -271,12 +296,14 @@ final List<QuizQuestion> masterQuizList = [
       "Mempunyai arah"
     ],
     correctIndex: 0,
+    explanation: "Gaya memiliki besaran, arah, titik tangkap, dan garis kerja, tetapi tidak memiliki bentuk.",
   ),
   QuizQuestion(
     id: "q23",
     text: "Gaya tarik dapat mengakibatkan ... pada elemen struktur.",
     options: ["Putus", "Patah", "Hancur", "Bengkok", "Pecah"],
     correctIndex: 0,
+    explanation: "Gaya tarik yang melampaui kekuatan elemen dapat menyebabkan putus.",
   ),
   QuizQuestion(
     id: "q24",
@@ -289,12 +316,14 @@ final List<QuizQuestion> masterQuizList = [
       "Momen gaya"
     ],
     correctIndex: 0,
+    explanation: "Gaya tarik menyebabkan retak dan pecah pada permukaan beton karena beton lemah terhadap tarik.",
   ),
   QuizQuestion(
     id: "q25",
     text: "Sesuatu yang menyebabkan perubahan dari diam menjadi bergerak, perubahan tempat dan bentuk, adalah pengertian dari?",
     options: ["Gaya", "Perpindahan", "Jarak", "Percepatan", "Daya"],
     correctIndex: 0,
+    explanation: "Gaya adalah penyebab perubahan keadaan diam menjadi bergerak atau perubahan bentuk.",
   ),
   QuizQuestion(
     id: "q26",
@@ -307,6 +336,7 @@ final List<QuizQuestion> masterQuizList = [
       "Jumlah gaya"
     ],
     correctIndex: 0,
+    explanation: "Resultante gaya adalah satu gaya pengganti yang kerja setara dengan gabungan beberapa gaya.",
   ),
   QuizQuestion(
     id: "q27",
@@ -319,12 +349,14 @@ final List<QuizQuestion> masterQuizList = [
       "Cara menambahkan dan membagi"
     ],
     correctIndex: 0,
+    explanation: "Resultan gaya dapat ditentukan secara analitis dengan perhitungan atau secara grafis dengan gambar.",
   ),
   QuizQuestion(
     id: "q28",
     text: "Jika R = √(P1² + P2²), P1=3 Ton, P2=4 Ton. Berapakah Resultan gayanya (R)?",
     options: ["5 Ton", "6 Ton", "7 Ton", "8 Ton", "9 Ton"],
     correctIndex: 0,
+    explanation: "R = akar(3 kuadrat ditambah 4 kuadrat) = 5 ton, sesuai segitiga siku-siku 3-4-5.",
   ),
   QuizQuestion(
     id: "q29",
@@ -337,18 +369,20 @@ final List<QuizQuestion> masterQuizList = [
       "Momen gaya"
     ],
     correctIndex: 0,
+    explanation: "Gaya dapat dipindahkan sepanjang garis kerjanya tanpa mengubah pengaruhnya pada benda kaku.",
   ),
   QuizQuestion(
     id: "q30",
-    text: "Perhatikan gambar (soal no 30 pada PDF), jika P1=80kg, P2=60kg, P3=20kg. Besar Resultante (R) adalah?",
+    text: "Jika pada suatu titik tangkap gaya bekerja tiga gaya horizontal segaris: P1 = 80 kg ke arah kanan, P2 = 60 kg ke arah kiri, dan P3 = 20 kg ke arah kiri, berapakah besar Resultan gaya (R) dan keadaannya?",
     options: [
-      "0 kg",
-      "80 kg (kekiri)",
-      "80 kg (kekanan)",
-      "160 Kg (ke kiri)",
-      "160 Kg (ke kanan)"
+      "0 kg (Gaya Seimbang)",
+      "80 kg (Ke Kiri)",
+      "80 kg (Ke Kanan)",
+      "160 Kg (Ke Kiri)",
+      "160 Kg (Ke Kanan)"
     ],
     correctIndex: 0,
+    explanation: "R = P1 - P2 - P3 = 80 - 60 - 20 = 0 kg (Kondisi seimbang).",
   ),
   QuizQuestion(
     id: "q31",
@@ -361,6 +395,7 @@ final List<QuizQuestion> masterQuizList = [
       "Semua benar"
     ],
     correctIndex: 0,
+    explanation: "Momen gaya adalah hasil perkalian gaya dengan jarak terhadap titik tertentu.",
   ),
   QuizQuestion(
     id: "q32",
@@ -373,12 +408,14 @@ final List<QuizQuestion> masterQuizList = [
       "Putaran gaya"
     ],
     correctIndex: 0,
+    explanation: "Besar momen sangat dipengaruhi jarak atau lengan gaya, selain besar gayanya.",
   ),
   QuizQuestion(
     id: "q33",
     text: "Jika diketahui besar gaya F=200 Kg dengan jarak 2 m, maka berapakah besar momen gaya yang terjadi?",
     options: ["400 Kg.m", "400 Kg", "400 m", "400", "400 m.Kg"],
     correctIndex: 0,
+    explanation: "Momen = F dikali L = 200 kg dikali 2 m = 400 kg.m.",
   ),
 
   // --- Gambar Teknik ---
@@ -393,6 +430,7 @@ final List<QuizQuestion> masterQuizList = [
       "Jangka"
     ],
     correctIndex: 0,
+    explanation: "Meteran adalah alat ukur, bukan peralatan menggambar teknik seperti mistar, jangka, dan meja gambar.",
   ),
   QuizQuestion(
     id: "q35",
@@ -405,12 +443,14 @@ final List<QuizQuestion> masterQuizList = [
       "Judul Gambar"
     ],
     correctIndex: 0,
+    explanation: "Ukuran gambar bukan kolom wajib kotak nama; yang dicantumkan antara lain judul, skala, dan tanggal.",
   ),
   QuizQuestion(
     id: "q36",
     text: "Pensil dengan kode HB termasuk dalam standard kekerasan?",
     options: ["Sedang", "Keras sedang", "Keras", "Lunak Sedang", "Lunak"],
     correctIndex: 0,
+    explanation: "Pensil HB memiliki tingkat kekerasan sedang, di antara H yang keras dan B yang lunak.",
   ),
   QuizQuestion(
     id: "q37",
@@ -420,9 +460,10 @@ final List<QuizQuestion> masterQuizList = [
       "A3 sama dengan 1/2 A2",
       "A3 sama dengan 1/2 A1",
       "A3 sama dengan 1/2 A0",
-      "A3 sama dengan 1/2 A1"
+      "A3 sama dengan 4 x A4"
     ],
     correctIndex: 0,
+    explanation: "A3 adalah dua kali A4, sehingga perbandingannya A3 sama dengan 2 x A4.",
   ),
   QuizQuestion(
     id: "q38",
@@ -435,6 +476,7 @@ final List<QuizQuestion> masterQuizList = [
       "29.7 x 21 cm"
     ],
     correctIndex: 0,
+    explanation: "A4 adalah setengah dari A3, yaitu 297 x 210 mm.",
   ),
   QuizQuestion(
     id: "q39",
@@ -447,6 +489,7 @@ final List<QuizQuestion> masterQuizList = [
       "Sama dengan tebal garis gambar"
     ],
     correctIndex: 0,
+    explanation: "Garis putus titik untuk potongan memiliki ketebalan sekitar 1/3 dari garis gambar.",
   ),
   QuizQuestion(
     id: "q40",
@@ -459,6 +502,7 @@ final List<QuizQuestion> masterQuizList = [
       "Garis putus"
     ],
     correctIndex: 0,
+    explanation: "Garis dengan ketebalan 1/4 garis gambar disebut garis tipis.",
   ),
   QuizQuestion(
     id: "q41",
@@ -471,6 +515,7 @@ final List<QuizQuestion> masterQuizList = [
       "Garis Gambar"
     ],
     correctIndex: 0,
+    explanation: "Garis tipis 0,20-0,25 mm dipakai untuk garis AS.",
   ),
   QuizQuestion(
     id: "q42",
@@ -483,18 +528,20 @@ final List<QuizQuestion> masterQuizList = [
       "Menggambar garis kotak nama"
     ],
     correctIndex: 0,
+    explanation: "Garis zig zag dipakai untuk memperpendek gambar bagian yang panjangnya berlebih.",
   ),
   QuizQuestion(
     id: "q43",
-    text: "(Perhatikan gambar sepasang segitiga siku-siku) Besar sudut alpha dan beta adalah?",
+    text: "Pada sepasang mistar segitiga gambar teknik standar (segitiga 45°-45°-90° dan segitiga 30°-60°-90°), berapakah sudut lancip terkecil yang dimiliki masing-masing mistar?",
     options: [
-      "a=15° dan B=60°",
-      "a=15° dan B=45°",
-      "a=15° dan B=75°",
-      "a=30° dan B=60°",
-      "a=30° dan B=75°"
+      "30° dan 45°",
+      "15° dan 45°",
+      "15° dan 75°",
+      "30° dan 60°",
+      "45° dan 60°"
     ],
     correctIndex: 0,
+    explanation: "Mistar 45-45-90 memiliki sudut lancip 45 derajat, sedangkan mistar 30-60-90 memiliki sudut lancip 30 derajat.",
   ),
   QuizQuestion(
     id: "q44",
@@ -507,53 +554,232 @@ final List<QuizQuestion> masterQuizList = [
       "90°, 45°, 30° dan 90°, 30°, 30°"
     ],
     correctIndex: 0,
+    explanation: "Sepasang mistar standar terdiri dari segitiga 90-45-45 dan segitiga 90-60-30.",
   ),
   QuizQuestion(
     id: "q45",
     text: "Dalam sebuah penggaris segitiga terdapat 3 buah sudut, total jumlah ketiga sudut tersebut adalah?",
     options: ["180°", "120°", "150°", "220°", "160°"],
     correctIndex: 0,
+    explanation: "Jumlah ketiga sudut segitiga selalu 180 derajat.",
   ),
   QuizQuestion(
     id: "q46",
     text: "Untuk menggambar ukuran sudut di kertas gambar secara manual, dipakai alat gambar?",
-    options: ["Busur", "Pensil", "Pena", "Rapido", "Segitiga siku"],
+    options: ["Busur derajat", "Pensil", "Pena", "Rapido", "Segitiga siku"],
     correctIndex: 0,
+    explanation: "Busur derajat dipakai untuk mengukur dan menggambar ukuran sudut secara manual.",
   ),
   QuizQuestion(
     id: "q47",
-    text: "(Soal Gambar Simbol) Simbol gambar biasanya menunjukan?",
+    text: "Dalam simbol gambar teknik bangunan, arsiran garis miring sejajar berselang-seling biasanya digunakan untuk melambangkan pasangan?",
     options: [
-      "Pasangan Batu bata",
-      "Batu Kali",
+      "Batu bata merah",
+      "Batu kali bulat",
       "Pintu dua daun",
-      "Keramik",
+      "Keramik lantai",
       "Pintu geser"
     ],
     correctIndex: 0,
+    explanation: "Arsiran garis miring sejajar berselang-seling melambangkan pasangan batu bata merah.",
   ),
   QuizQuestion(
     id: "q48",
-    text: "(Soal Gambar Simbol 2) Simbol gambar biasanya menunjukan?",
+    text: "Dalam gambar denah arsitektur, simbol seperempat lingkaran dengan garis lurus bukaan digunakan untuk menunjukkan?",
     options: [
+      "Pintu satu daun dan arah bukaannya",
       "Pintu dua daun",
-      "Dua Pintu geser",
-      "Jendela",
-      "Pintu satu daun",
-      "Pintu geser"
+      "Jendela kaca mati",
+      "Pintu geser",
+      "Dua pintu lipat"
     ],
     correctIndex: 0,
+    explanation: "Simbol seperempat lingkaran dengan garis lurus bukaan menunjukkan pintu satu daun beserta arah bukaannya.",
   ),
   QuizQuestion(
     id: "q49",
     text: "Sebidang tanah persegi 10m x 20m. Jika digambar skala 1:100, panjang garis tanah tersebut menjadi?",
     options: ["20 cm", "20 mm", "10 mm", "10 cm", "120 mm"],
     correctIndex: 0,
+    explanation: "Skala 1:100 membuat panjang 20 m menjadi 20 cm pada gambar.",
   ),
   QuizQuestion(
     id: "q50",
     text: "Lebar pintu 80 cm, jika skala gambar 1:50, maka lebar pintu yang digambarkan adalah?",
     options: ["1,6 cm", "8 mm", "40 cm", "16 mm", "16 cm"],
     correctIndex: 0,
+    explanation: "Lebar 80 cm dengan skala 1:50 menjadi 1,6 cm pada gambar.",
+  ),
+
+  // ==========================================
+  // 📸 SOAL BERGAMBAR (MATERI CP1 & CP2)
+  // ==========================================
+  QuizQuestion(
+    id: "img_q1",
+    text: "Perhatikan gambar berikut. Sketsa hierarki jaringan jalan tersebut menunjukkan pembagian fungsi dari jalan lokal, kolektor, hingga jalan primer tertinggi yaitu?",
+    options: [
+      "Jalan Arteri",
+      "Jalan Tol Layang",
+      "Jalan Lingkungan Sempit",
+      "Jalan Setapak",
+      "Jalan Khusus Kereta"
+    ],
+    correctIndex: 0,
+    explanation: "Sketsa hierarki jalan menunjukkan jalan arteri sebagai jalan primer tertinggi dalam jaringan.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 1 Sketsa Hierarki Jalan.png",
+  ),
+  QuizQuestion(
+    id: "img_q2",
+    text: "Perhatikan gambar bagian-bagian jalan berikut. Pembagian area ruang jalan yang terdiri dari bagian manfaat, milik, dan pengawasan disingkat menjadi?",
+    options: [
+      "Damaja, Damija, dan Dawasja",
+      "Damasja, Damika, dan Danasja",
+      "Dapem, Damil, dan Dawas",
+      "Damawa, Damaja, dan Dawija",
+      "Damina, Damika, dan Dawasja"
+    ],
+    correctIndex: 0,
+    explanation: "Damaja, Damija, dan Dawasja adalah singkatan ruang manfaat, milik, dan pengawasan jalan.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 3 Tipikal Damaja, Damija dan Dawasja.png",
+  ),
+  QuizQuestion(
+    id: "img_q3",
+    text: "Perhatikan gambar tikungan jalan berikut. Bentuk geometri lengkung horizontal tikungan tunggal berbentuk busur lingkaran sempurna pada gambar adalah jenis tikungan?",
+    options: [
+      "Full Circle (FC)",
+      "Spiral - Circle - Spiral (SCS)",
+      "Spiral - Spiral (SS)",
+      "Tikungan Siku 90°",
+      "Tikungan U-Turn"
+    ],
+    correctIndex: 0,
+    explanation: "Tikungan Full Circle berbentuk busur lingkaran sempurna tanpa lengkung peralihan.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 7 tikungan Full Circle (FC).jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q4",
+    text: "Perhatikan gambar tikungan jalan berikut. Tikungan yang menghubungkan garis lurus dengan lingkaran melalui lengkung peralihan di kedua sisinya pada gambar disebut?",
+    options: [
+      "Spiral - Circle - Spiral (SCS)",
+      "Full Circle (FC)",
+      "Spiral - Spiral (SS)",
+      "Tikungan Lurus",
+      "Tikungan Balik Arah"
+    ],
+    correctIndex: 0,
+    explanation: "Tikungan SCS memiliki lengkung peralihan spiral di kedua ujung busur lingkaran.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 8 tikungan Spiral - Circle Spiral.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q5",
+    text: "Perhatikan gambar berikut. Garis kelurusan jalan dalam arah vertikal yang memuat tanjakan dan turunan (kelandaian) disebut alinyemen?",
+    options: [
+      "Alinyemen Vertikal",
+      "Alinyemen Horisontal",
+      "Alinyemen Diagonal",
+      "Profil Melintang",
+      "Potongan Denah"
+    ],
+    correctIndex: 0,
+    explanation: "Alinyemen vertikal menggambarkan tanjakan dan turunan pada arah memanjang jalan.",
+    imagePath: "assets/gambar/cp2/Jalan/Gambar 10 Alinyemen Vertikal.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q6",
+    text: "Perhatikan gambar struktur jembatan berikut. Komponen pengaman tepi yang berfungsi menjaga keselamatan pejalan kaki di atas jembatan pada gambar adalah?",
+    options: [
+      "Sandaran dan Tiang Sandaran (Railing)",
+      "Gelagar Memanjang Utama",
+      "Abutment (Kepala Jembatan)",
+      "Oprit Jembatan",
+      "Pondasi Sumuran"
+    ],
+    correctIndex: 0,
+    explanation: "Sandaran dan tiang sandaran menjaga keselamatan pejalan kaki di tepi jembatan.",
+    imagePath: "assets/gambar/cp2/Jembatan/Gambar 21 Sandaran dan Tiang Sandaran.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q7",
+    text: "Perhatikan gambar berikut. Pembatas peninggi tepi jalan/trotoar (kerb) pada jembatan yang berfungsi mengarahkan air dan membatasi roda kendaraan adalah?",
+    options: [
+      "Kerb Jembatan",
+      "Tiang Pancang",
+      "Gelagar Melintang",
+      "Elastomer Bantalan",
+      "Plat Injak"
+    ],
+    correctIndex: 0,
+    explanation: "Kerb membatasi tepi trotoar sekaligus mengarahkan air permukaan jembatan.",
+    imagePath: "assets/gambar/cp2/Jembatan/Gambar 22 Kerb.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q8",
+    text: "Perhatikan gambar jembatan berikut. Struktur bawah jembatan yang terletak pada pangkal/ujung jembatan dan bersentuhan langsung dengan tanah timbunan oprit adalah?",
+    options: [
+      "Abutment (Pangkal Jembatan)",
+      "Pilar Tengah (Pier)",
+      "Gelagar Induk",
+      "Lantai Kendaraan",
+      "Expansion Joint"
+    ],
+    correctIndex: 0,
+    explanation: "Abutment terletak di pangkal jembatan dan bersentuhan langsung dengan tanah timbunan oprit.",
+    imagePath: "assets/gambar/cp2/Jembatan/Gambar 27 Abutment (Pangkal Jembatan).jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q9",
+    text: "Perhatikan gambar berikut. Bangunan bawah jembatan yang terletak di antara dua abutment dan membagi bentang jembatan di tengah sungai/lembah adalah?",
+    options: [
+      "Pilar Jembatan (Pier)",
+      "Talud Pelindung",
+      "Sandaran Trotoar",
+      "Bahu Jalan Tepi",
+      "Plat Injak Oprit"
+    ],
+    correctIndex: 0,
+    explanation: "Pilar berada di antara abutment dan membagi bentang jembatan di atas sungai atau lembah.",
+    imagePath: "assets/gambar/cp2/Jembatan/Gambar 28 Pilar Jembatan.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q10",
+    text: "Perhatikan gambar lapisan perkerasan jalan lentur berikut. Lapisan struktur jalan yang paling atas dan langsung menerima gesekan serta beban roda kendaraan adalah?",
+    options: [
+      "Lapis Permukaan (Surface Course)",
+      "Lapis Pondasi Atas (Base Course)",
+      "Lapis Pondasi Bawah (Subbase Course)",
+      "Tanah Dasar Asli (Subgrade)",
+      "Lapisan Geotekstil"
+    ],
+    correctIndex: 0,
+    explanation: "Lapis permukaan adalah lapisan teratas yang menerima gesekan dan beban roda kendaraan.",
+    imagePath: "assets/gambar/cp2/Perkerasan_Jalan/Gambar 19 bagian perkerasan jalan.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q11",
+    text: "Perhatikan gambar berikut. Saluran penampung di sisi jalan yang berfungsi membuang air hujan agar badan jalan tidak tergenang atau rusak adalah?",
+    options: [
+      "Saluran Drainase Jalan",
+      "Median Jalan Hijau",
+      "Zebra Cross",
+      "Pulau Lalu Lintas",
+      "Pagar Pengaman Guardrail"
+    ],
+    correctIndex: 0,
+    explanation: "Saluran drainase membuang air hujan agar badan jalan tidak tergenang.",
+    imagePath: "assets/gambar/cp2/Umum/Gambar 30 saluran drainase.jpeg",
+  ),
+  QuizQuestion(
+    id: "img_q12",
+    text: "Perhatikan gambar pemodelan bangunan berikut. Tampilan visual 3D yang menampilkan keutuhan elemen arsitektur, struktur, dan pembagian ruang secara transparan/aksonometrik dibuat menggunakan konsep?",
+    options: [
+      "BIM (Building Information Modelling)",
+      "Manual Sketching Pensil",
+      "Fotografi Satelit Udara",
+      "Denah Garis 2D Konvensional",
+      "Peta Kontur Topografi"
+    ],
+    correctIndex: 0,
+    explanation: "BIM menghasilkan model 3D yang menggabungkan elemen arsitektur, struktur, dan informasi ruang.",
+    imagePath: "assets/gambar/cp1/02_AXONO_GENERAL.jpg",
   ),
 ];

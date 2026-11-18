@@ -1,0 +1,94 @@
+rules_version = '2';
+
+// JamHood rooms are public classroom sessions. firebase_auth is not a
+// dependency of this app, so these rules cannot bind writes to a signed-in
+// host or player. They enforce document shape and protect the fields that
+// must not change mid-game. They are not a substitute for App Check or auth.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSixDigitPin(pin) {
+      return pin.matches('^[0-9]{6}$');
+    }
+
+    function validRoomStatus() {
+      return request.resource.data.status in [
+        'lobby', 'countdown', 'question', 'reveal', 'leaderboard', 'finished'
+      ];
+    }
+
+    function isSmallInt(value, max) {
+      return value is int && value >= 0 && value <= max;
+    }
+
+    // True when every listed field keeps its previous value. Only valid on
+    // updates, where `resource` is the existing document.
+    function unchanged(fields) {
+      return request.resource.data.diff(resource.data).unchangedKeys().hasAll(fields);
+    }
+
+    match /jamhood_rooms/{pin} {
+      allow read: if true;
+
+      // A new room must own its PIN and carry an expiry, so abandoned rooms
+      // can be reclaimed by cleanupExpiredRooms().
+      allow create: if isSixDigitPin(pin)
+        && request.resource.data.keys().hasAll([
+             'pin', 'hostId', 'status', 'questions', 'createdAtMs',
+             'expiresAtMs', 'timeLimitSeconds'
+           ])
+        && request.resource.data.pin == pin
+        && request.resource.data.status == 'lobby'
+        && request.resource.data.hostId is string
+        && request.resource.data.questions is list
+        && request.resource.data.questions.size() <= 25
+        && isSmallInt(request.resource.data.timeLimitSeconds, 120)
+        && request.resource.data.createdAtMs is int
+        && request.resource.data.expiresAtMs is int
+        && request.resource.data.expiresAtMs > request.time.milliseconds()
+        && request.resource.data.expiresAtMs <= request.time.milliseconds() + 10800000;
+
+      // The question bank and identity of a room are immutable. Only the
+      // host-driven status/timing counters may advance.
+      allow update: if unchanged(['pin', 'hostId', 'questions', 'createdAtMs', 'expiresAtMs'])
+        && validRoomStatus()
+        && isSmallInt(request.resource.data.totalAnswersSubmitted, 10000);
+
+      allow delete: if true;
+
+      match /players/{playerId} {
+        allow read: if true;
+
+        allow create: if request.resource.data.keys().hasAll(['nickname', 'score', 'streak', 'hasAnswered'])
+          && request.resource.data.nickname is string
+          && request.resource.data.nickname.size() <= 15
+          && request.resource.data.score == 0
+          && request.resource.data.streak == 0
+          && request.resource.data.hasAnswered == false;
+
+        // A player may answer once per question. Score fields are bounded,
+        // but without authentication a determined client can still forge them.
+        allow update: if unchanged(['id', 'nickname'])
+          && request.resource.data.score is int
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= 100000
+          && request.resource.data.streak is int
+          && request.resource.data.streak >= 0
+          && request.resource.data.streak <= 1000
+          && (request.resource.data.selectedOption == null
+              || isSmallInt(request.resource.data.selectedOption, 9));
+
+        allow delete: if true;
+      }
+    }
+
+    // Firestore-generated clock used as the server-time anchor. One client
+    // seeds it; later clients only read it.
+    match /_meta/serverTime {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['now'])
+        && request.resource.data.now == request.time;
+      allow update, delete: if false;
+    }
+  }
+}

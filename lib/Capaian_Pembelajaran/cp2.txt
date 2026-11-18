@@ -1,0 +1,115 @@
+Struktur Modul Web: BAB 2 - Pemodelan Konstruksi Jalan dan Jembatan dengan BIM
+Mata Pelajaran: Desain Pemodelan dan Informasi Bangunan (DPIB)
+Fase / Tingkat: Fase F • Alur Tujuan Pembelajaran (ATP) Tahap 2
+Referensi Sumber: Suplemen Bahan Ajar Menggambar Jalan dan Jembatan (Weni Murfihenni, PPPPTK BMTI Kemendikbud)
+
+================================================================================
+TUJUAN PEMBELAJARAN TAHAP 2:
+Peserta didik mampu menjelaskan bagian-bagian konstruksi jalan dan jembatan, memahami kaidah geometrik serta spesifikasi teknis perkerasan, mengidentifikasi komponen struktur atas/bawah jembatan, dan mampu membuat pemodelan gambar 2D & 3D jalan dan jembatan sesuai ketentuan teknis yang berlaku menggunakan teknologi BIM.
+================================================================================
+
+1. KLASIFIKASI DAN HIERARKI JALAN
+A. Menurut Sistem Jaringan Jalan:
+- Jalan Primer: Sistem jaringan dengan peranan pelayanan distribusi barang dan jasa untuk pengembangan semua wilayah di tingkat nasional, menghubungkan semua simpul jasa distribusi pusat kegiatan.
+- Jalan Sekunder: Sistem jaringan jalan dengan peranan pelayanan distribusi barang dan jasa untuk masyarakat di dalam kawasan perkotaan.
+
+B. Menurut Fungsi Jalan:
+- Jalan Arteri: Melayani angkutan utama, perjalanan jarak jauh, kecepatan rata-rata tinggi, akses masuk dibatasi efisien.
+- Jalan Kolektor: Melayani angkutan pengumpul/pembagi, jarak sedang, kecepatan sedang, akses dibatasi.
+- Jalan Lokal: Melayani angkutan setempat, jarak dekat, kecepatan rendah, jalan masuk tidak dibatasi.
+- Jalan Lingkungan: Melayani angkutan lingkungan, perjalanan jarak dekat, kecepatan rendah.
+
+C. Menurut Status Pengelolaan Jalan:
+- Jalan Nasional: Jalan arteri & kolektor primer penghubung antaribukota provinsi, jalan strategis nasional, dan jalan tol.
+- Jalan Provinsi: Jalan kolektor primer penghubung ibukota provinsi dengan kabupaten/kota, atau antar-kabupaten/kota.
+- Jalan Kabupaten: Jalan lokal primer penghubung ibukota kabupaten dengan kecamatan / antarkecamatan, dan jaringan sekunder kabupaten.
+- Jalan Kota: Jaringan jalan sekunder perkotaan penghubung pusat pelayanan kota dengan persil dan permukiman.
+- Jalan Desa: Jaringan penghubung antarkawasan atau antarpermukiman di dalam desa.
+
+D. Menurut Kelas & Spesifikasi Penyediaan Jalan:
+- Kelas Jalan Muatan Sumbu Terberat (MST): Kelas Khusus (>10 ton), Kelas I (10 ton), Kelas II (8 ton), Kelas III (8 ton).
+- Spesifikasi Prasarana: Jalan Bebas Hambatan (kontrol penuh, min 2x3,5m per arah, ada median & pagar), Jalan Raya (terbagi, median), Jalan Sedang (jalur min 7,0m), Jalan Kecil (jalur min 5,5m).
+
+--------------------------------------------------------------------------------
+2. BAGIAN-BAGIAN DAN RUANG MANFAAT JALAN
+A. Ruang Manfaat Jalan (RUMAJA):
+Meliputi badan jalan, saluran tepi drainase, talud timbunan/galian, dan ambang pengaman.
+- Batas vertikal atas: minimum 5,0 meter di atas permukaan perkerasan pada sumbu jalan (ruang bebas kendaraan).
+- Batas vertikal bawah: minimum 1,5 meter di bawah permukaan perkerasan jalan.
+- Batas horizontal: dibatasi ambang pengaman konstruksi di kedua sisi jalan.
+
+B. Ruang Milik Jalan (RUMIJA):
+Ruang sepanjang jalan yang dimiliki negara, dibatasi patok batas Rumija. Dimanfaatkan untuk pelebaran jalan di masa depan, pengamanan struktur, ruang terbuka hijau / lansekap, serta penempatan utilitas kota.
+
+C. Ruang Pengawasan Jalan (RUWASJA):
+Ruang tertentu di luar Rumija di bawah pengawasan penyelenggara jalan untuk menjamin jarak pandang bebas pengemudi dan keselamatan kendaraan bila hilang kendali.
+Ukuran minimum dari tepi badan jalan:
+- Arteri Primer: 15 meter
+- Kolektor Primer: 10 meter
+- Lokal Primer: 7 meter
+- Lingkungan Primer: 5 meter
+- Arteri Sekunder: 15 meter | Kolektor Sekunder: 5 meter | Lokal: 3 meter | Lingkungan: 2 meter
+- Jembatan: 100 meter ke arah hilir dan hulu sungai.
+
+D. Elemen Potongan Melintang (Cross Section) Jalan:
+- Jalur Lalu Lintas (Carriageway): Bagian yang diperkeras untuk lintasan roda kendaraan, terdiri dari beberapa lajur (lane).
+- Bahu Jalan (Shoulder): Penopang samping perkerasan, ruang darurat kendaraan berhenti. Kemiringan melintang normal 3% - 5% (harus lebih miring daripada perkerasan jalur utama 2% - 3%).
+- Median Jalan: Pemisah fisik dua arah aliran lalu lintas berlawanan, pencegah silau lampu malam, tempat penyeberangan (lapak tunggu), dan cadangan lajur masa depan. Median < 2,5 m harus ditinggikan dengan kerb.
+- Jalur Pejalan Kaki (Trotoar) & Jalur Sepeda: Ditinggikan dengan kerb atau dipisah saluran samping untuk perlindungan pejalan kaki. Lebar min trotoar 1,5 m.
+- Bangunan Pelengkap & Perlengkapan Jalan: Dinding penahan tanah (retaining wall), gorong-gorong (culvert), marka jalan, rambu lalu lintas, guardrail/pagar pengaman, dan penerangan jalan umum (PJU).
+
+--------------------------------------------------------------------------------
+3. KRITERIA PERENCANAAN GEOMETRIK JALAN
+A. Alinyemen Horisontal (Trase Situasi Jalan):
+Proyeksi sumbu jalan pada bidang datar horizontal, terdiri atas bagian lurus (tangen) dan lengkung tikungan:
+1. Full Circle (FC): Tikungan busur lingkaran penuh untuk jari-jari lengkung besar.
+2. Spiral - Circle - Spiral (SCS): Tikungan dengan lengkung peralihan spiral masuk, busur lingkaran tengah, dan spiral keluar untuk kenyamanan gaya sentrifugal.
+3. Spiral - Spiral (SS): Dua lengkung spiral bertemu di satu titik tanpa busur lingkaran tengah (untuk sudut tikungan runcing).
+
+B. Alinyemen Vertikal (Profil Memanjang):
+Elevasi sumbu jalan ditinjau memanjang dengan kombinasi:
+- Kelandaian positif (tanjakan) & kelandaian negatif (turunan).
+- Lengkung vertikal cembung (summit curve) & cekung (sag curve) untuk menjamin jarak pandang henti (stopping sight distance).
+
+--------------------------------------------------------------------------------
+4. ANATOMI DAN TEKNIS PERKERASAN JALAN (PAVEMENT)
+A. Susunan Lapis Perkerasan Lentur (Flexible Pavement) dari Bawah ke Atas:
+1. Tanah Dasar (Subgrade): Lapisan dasar penopang setebal min 30 cm, dipadatkan hingga 100% kepadatan kering maksimum (AASHTO T 99) dengan daya dukung CBR minimum 6%.
+2. Pondasi Bawah (Subbase Course): Agregat kelas B/S penyebar beban roda ke tanah dasar, lapis peresapan air, dan pemutus kapiler tanah.
+3. Pondasi Atas (Base Course): Batu pecah agregat kelas A penahan gaya lintang utama dari beban dinamis kendaraan.
+4. Lapis Permukaan (Surface Course): Lapisan aspal beton penahan gesekan roda (lapis aus / wearing course AC-WC) dan lapis pengikat (binder course AC-BC) yang kedap air.
+
+B. Jenis Perkerasan: Perkerasan Lentur (Aspal), Perkerasan Kaku (Rigid Pavement / Beton Semen), dan Komposit (Pelat beton dilapisi aspal).
+
+--------------------------------------------------------------------------------
+5. ANATOMI STRUKTUR JEMBATAN LENGKAP
+Jembatan adalah konstruksi penghubung ruas jalan yang melintasi rintangan fisik (sungai, lembah, saluran air, rel KA, jalan lain).
+A. Struktur Atas (Superstructure):
+Bagian jembatan yang menerima beban langsung lalu lintas dan mendistribusikannya ke tumpuan perletakan:
+- Slab Lantai Kendaraan (Deck Slab): Pelat lantai beton bertulang tempat melintasnya roda kendaraan.
+- Gelagar Memanjang & Melintang (Girder): Balok baja (I-beam/truss) atau gelagar beton prategang (PCI Girder) penyangga lantai jembatan.
+- Balok Diafragma: Balok melintang pengaku lateral antar-girder terhadap gaya puntir dan goyangan angin.
+- Trotoar & Kerb Jembatan: Jalur pejalan kaki samping, dilengkapi peninggian tepi (kerb) dan slab trotoar.
+- Tiang & Pipa Sandaran (Railing / Handrail): Pengaman pejalan kaki setinggi 0,9 m mampu menahan beban horisontal 100 kg/m.
+- Perletakan & Elastomeric Bearing Pad: Bantalan elastomer penumpu gelagar untuk meredam getaran dan mengakomodasi pemuaian/rotasi struktur.
+- Siar Muai (Expansion Joint): Celah pemuaian di antara bentang gelagar dan abutment.
+
+B. Struktur Bawah (Substructure):
+Bagian penyangga beban struktur atas untuk disalurkan ke fondasi tanah:
+- Pangkal Jembatan (Abutment): Penopang ujung jembatan sekaligus dinding penahan tanah timbunan oprit. Bagian terdiri atas: Dinding Belakang (Back wall), Dinding Penahan (Breast wall), Dinding Sayap (Wing wall), dan Korbel pendek jacking.
+- Pilar Jembatan (Pier): Penopang tengah jembatan di tengah aliran air jika bentang melebihi kapasitas bentang gelagar tunggal. Terdiri atas Kepala Pilar (Pier head), Kolom Pilar (Pier column), dan Pile cap penutup kelompok tiang.
+
+C. Fondasi Jembatan:
+Penerus beban ke lapisan tanah keras (fondasi telapak / sumuran caisson / tiang pancang pipa baja / tiang bor bored pile).
+
+D. Bangunan Pelengkap & Pengaman Jembatan:
+- Jalan Pendekat (Oprit) & Plat Injak (Approach Slab): Ruas jalan transisi peralihan dari jalan biasa menuju jembatan untuk mencegah 'efek hentakan/bump' akibat perbedaan settlement tanah.
+- Talud Pelindung Abutment (Revetment): Pasangan batu pelindung lereng tanah dari gerusan arus sungai (scouring).
+- Saluran Drainase Jembatan: Pipa pembuang air hujan di lantai jembatan ke arah luar agar tidak terjadi genangan perusak aspal.
+- Patok Penuntun (Guide Post) & Lampu Penerangan: Rambu penuntun pengemudi di sepanjang oprit jembatan saat malam hari.
+
+--------------------------------------------------------------------------------
+6. INTEGRASI PEMODELAN BIM PADA JALAN DAN JEMBATAN
+Dalam alur kerja BIM Jalan dan Jembatan:
+- Pemodelan Geometrik Terintegrasi: Penggabungan trace alinyemen 3D horisontal-vertikal dengan cross-section parametrik koridor jalan.
+- Parametric Bridge Assemblies: Komponen struktur jembatan (girder, pier, abutment, approach slab) dimodelkan dengan atribut informasi material nyata, deteksi benturan utilitas (clash detection), serta penjadwalan konstruksi (4D BIM).

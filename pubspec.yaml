@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -18,6 +18,10 @@ dependencies:
   model_viewer_plus: ^1.7.0
   google_fonts: ^6.1.0
   cupertino_icons: ^1.0.8
+  shared_preferences: ^2.5.5
+  path_provider: ^2.1.5
+  firebase_core: ^3.4.0
+  cloud_firestore: ^5.4.0
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +30,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/gambar/cp1/
+    - assets/gambar/cp2/Jalan/
+    - assets/gambar/cp2/Jembatan/
+    - assets/gambar/cp2/Perkerasan_Jalan/
+    - assets/gambar/cp2/Umum/
+    - assets/glb/cp1/

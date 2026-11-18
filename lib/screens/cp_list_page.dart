@@ -9,12 +9,47 @@ class CPListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Curriculum Modules"),
+        title: const Text("Capaian Pembelajaran"),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
-        titleTextStyle: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 20, fontWeight: FontWeight.bold),
+        titleTextStyle: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.primary),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF1F5F9),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_rounded, color: Color(0xFF0F172A), size: 20),
+              onPressed: () => Navigator.pop(context),
+              tooltip: 'Kembali',
+              padding: EdgeInsets.zero,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0, top: 8.0, bottom: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1F5F9),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.home_rounded, color: Color(0xFF0F172A), size: 20),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+                tooltip: 'Halaman Utama',
+                padding: EdgeInsets.zero,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: ConstrainedBox(
@@ -50,7 +85,10 @@ class CPListPage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -88,7 +126,11 @@ class CPListPage extends StatelessWidget {
                   label: Text(sub.title),
                   avatar: const Icon(Icons.play_circle_outline, size: 16),
                   backgroundColor: Colors.white,
-                  side: BorderSide(color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
+                  side: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.2)),
                   onPressed: () {
                     Navigator.push(
                       context,

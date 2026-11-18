@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:model_viewer_plus/model_viewer_plus.dart';
@@ -98,8 +99,45 @@ class _ChapterDetailPageState extends State<ChapterDetailPage> {
       appBar: AppBar(
         title: Text(widget.subChapter.title),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 1,
+        foregroundColor: const Color(0xFF0F172A),
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF1F5F9),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_rounded, color: Color(0xFF0F172A), size: 20),
+              onPressed: () => Navigator.pop(context),
+              tooltip: 'Kembali',
+              padding: EdgeInsets.zero,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0, top: 8.0, bottom: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1F5F9),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.home_rounded, color: Color(0xFF0F172A), size: 20),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+                tooltip: 'Halaman Utama',
+                padding: EdgeInsets.zero,
+              ),
+            ),
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(color: const Color(0xFFE2E8F0), height: 1),
+        ),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -203,34 +241,33 @@ class _ChapterDetailPageState extends State<ChapterDetailPage> {
           textAlign: TextAlign.justify,
         ),
         const Divider(height: 40),
-        
-        // DEBUG SECTION (Fixed logic)
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("🔍 Debug Info (Files Found):", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              const SizedBox(height: 4),
-              
-              if (_debugFileNames.isEmpty)
-                const Text("No files found in this folder.", style: TextStyle(fontSize: 12, color: Colors.red))
-              else
-                // Using a clearer loop instead of map spread to avoid syntax errors
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _debugFileNames.map((f) => Text("• $f", style: const TextStyle(fontSize: 12))).toList(),
-                ),
 
-              const SizedBox(height: 8),
-              if (_modelUrls.isEmpty) 
-                 const Text("❌ No GLB/GLTF models detected.", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red))
-              else 
-                 Text("✅ Loaded ${_modelUrls.length} models.", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.green)),
-            ],
+        if (kDebugMode)
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Info debug (file ditemukan):", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                const SizedBox(height: 4),
+
+                if (_debugFileNames.isEmpty)
+                  const Text("Tidak ada file di folder ini.", style: TextStyle(fontSize: 12, color: Colors.red))
+                else
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _debugFileNames.map((f) => Text("- $f", style: const TextStyle(fontSize: 12))).toList(),
+                  ),
+
+                const SizedBox(height: 8),
+                if (_modelUrls.isEmpty)
+                  const Text("Model GLB/GLTF tidak ditemukan.", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red))
+                else
+                  Text("${_modelUrls.length} model termuat.", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.green)),
+              ],
+            ),
           ),
-        ),
       ],
     );
   }

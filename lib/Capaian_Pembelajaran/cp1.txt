@@ -1,0 +1,15 @@
+Capaian Pembelajaran 1 - Pengenalan Pemodelan Bangunan 2D & 3D dengan BIM
+
+2D dan 3D untuk elemen struktur, arsitektur, interior, dan eksterior gedung.
+
+Mengenal Komponen Bangunan
+
+Dalam mendesain sebuah rumah, baik sederhana maupun bertingkat, kita akan membedah bangunan menjadi beberapa bagian utama:
+
+Struktur: Ini adalah "tulang" dari bangunan. Kalian akan belajar memahami gambar 2D dan 3D dari pondasi, kolom, dan balok.
+Arsitektur & Eksterior: Ini adalah wajah bangunan. Kita akan memodelkan bentuk luar, fasad, dinding, dan atap gedung rumah sederhana hingga bertingkat.
+Interior: Ini adalah "nyawa" di dalam ruangan. Pemahaman gambar 3D akan sangat membantu melihat tata letak ruangan di dalam rumah.
+
+Mengapa Kita Menggunakan Teknologi BIM?
+
+BIM (Building Information Modelling) bukanlah sekadar aplikasi untuk menggambar, melainkan teknologi berbasis informasi. Sesuai dengan alur tujuan pembelajaran, seluruh pemahaman gambar 2D dan 3D, baik untuk arsitektur maupun struktur, wajib menggunakan teknologi BIM.
