@@ -1,8 +1,10 @@
 // lib/screens/jamhood/jamhood_player_page.dart
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../models/jamhood_model.dart';
 import '../../services/jamhood_service.dart';
 import '../../widgets/zoomable_image_dialog.dart';
+import 'jamhood_floating_bubble.dart';
 import 'jamhood_leaderboard_sheet.dart';
 import 'jamhood_theme.dart';
 
@@ -26,6 +28,98 @@ class _JamHoodPlayerPageState extends State<JamHoodPlayerPage> {
   int? _selectedAnswerIndex;
   int _lastQuestionIndex = -1;
   bool _isImagePreviewOpen = false;
+
+  final ValueNotifier<int> _secondsRemainingNotifier = ValueNotifier<int>(20);
+  Timer? _questionTimer;
+  int _lastTimerQuestionIndex = -1;
+
+  @override
+  void dispose() {
+    _questionTimer?.cancel();
+    _secondsRemainingNotifier.dispose();
+    super.dispose();
+  }
+
+  void _startQuestionTimer(JamHoodRoom room) {
+    _questionTimer?.cancel();
+    int initialSeconds = room.timeLimitSeconds;
+    if (room.questionStartTimeMs > 0) {
+      final elapsedSec =
+          (DateTime.now().millisecondsSinceEpoch - room.questionStartTimeMs) ~/
+              1000;
+      initialSeconds =
+          (room.timeLimitSeconds - elapsedSec).clamp(0, room.timeLimitSeconds);
+    }
+    _secondsRemainingNotifier.value = initialSeconds;
+
+    _questionTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemainingNotifier.value > 0) {
+        _secondsRemainingNotifier.value--;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void _handleRoomTimerSync(JamHoodRoom room) {
+    if (room.status == JamHoodRoomStatus.question) {
+      if (_lastTimerQuestionIndex != room.currentQuestionIndex) {
+        _lastTimerQuestionIndex = room.currentQuestionIndex;
+        _startQuestionTimer(room);
+      }
+    } else {
+      if (_lastTimerQuestionIndex != -1) {
+        _lastTimerQuestionIndex = -1;
+        _questionTimer?.cancel();
+      }
+    }
+  }
+
+  Future<void> _confirmExitRoom() async {
+    final bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (c) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Row(
+          children: [
+            Icon(Icons.exit_to_app_rounded, color: Color(0xFFE53935)),
+            SizedBox(width: 10),
+            Text('Keluar dari Room?'),
+          ],
+        ),
+        content: Text(
+          'Apakah kamu yakin ingin keluar dari antrean game PIN ${widget.pin}?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(c, false),
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFE53935),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onPressed: () => Navigator.pop(c, true),
+            child: const Text('Keluar'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      if (widget.playerId != null) {
+        await JamHoodService.leaveRoom(
+          pin: widget.pin,
+          playerId: widget.playerId!,
+        );
+      }
+      if (mounted) Navigator.pop(context);
+    }
+  }
 
   void _openQuestionImage(String imagePath) {
     if (_isImagePreviewOpen) return;
@@ -117,9 +211,11 @@ class _JamHoodPlayerPageState extends State<JamHoodPlayerPage> {
                     _scheduleImagePreviewClose();
                   }
 
+                  _handleRoomTimerSync(room);
+
                   switch (room.status) {
                     case JamHoodRoomStatus.lobby:
-                      return _buildPlayerLobbyView();
+                      return _buildPlayerLobbyView(players);
                     case JamHoodRoomStatus.countdown:
                       return _buildPlayerCountdownView();
                     case JamHoodRoomStatus.question:
@@ -166,48 +262,185 @@ class _JamHoodPlayerPageState extends State<JamHoodPlayerPage> {
   }
 
   // 1. Player Waiting in Lobby
-  Widget _buildPlayerLobbyView() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: const BoxDecoration(
-                color: Color(0xFF46178F),
-                shape: BoxShape.circle,
+  Widget _buildPlayerLobbyView(List<JamHoodPlayer> players) {
+    return Column(
+      children: [
+        // Top Bar with Back Button & Room PIN info
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Back Button to exit room
+              InkWell(
+                onTap: _confirmExitRoom,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white24),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.arrow_back_rounded, color: Colors.white, size: 18),
+                      SizedBox(width: 6),
+                      Text(
+                        'Keluar Room',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              child: const Icon(Icons.tag_faces, size: 80, color: Colors.white),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              widget.nickname,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 32,
-                fontWeight: FontWeight.w900,
+
+              // Player Count Header Badge
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF00E676).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xFF00E676).withOpacity(0.5)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.people_alt_rounded, color: Color(0xFF00E676), size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${players.length} Pemain Siap',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Kamu sudah bergabung! 🎉',
-              style: TextStyle(
-                color: Color(0xFF00E676),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Lihat namamu di layar host dan tunggu game dimulai...',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white70, fontSize: 16),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+
+        // Main Content Area with Avatar & Floating Bubbles
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: Column(
+              children: [
+                const SizedBox(height: 12),
+                // Player's Avatar
+                Container(
+                  padding: const EdgeInsets.all(22),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF46178F),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF46178F).withOpacity(0.6),
+                        blurRadius: 24,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(Icons.sentiment_very_satisfied_rounded, size: 72, color: Colors.white),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  widget.nickname,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w900,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Kamu sudah bergabung! 🎉',
+                  style: TextStyle(
+                    color: Color(0xFF00E676),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Lihat namamu di layar host dan tunggu game dimulai...',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+
+                const SizedBox(height: 24),
+
+                // Floating Players Arena
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white.withOpacity(0.12)),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF00E676),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Pemain yang Sudah Bergabung (${players.length})',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 14,
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: List.generate(players.length, (index) {
+                          final p = players[index];
+                          final bool isMe = (widget.playerId != null && p.id == widget.playerId) ||
+                              p.nickname.toLowerCase() == widget.nickname.toLowerCase();
+                          return JamHoodFloatingBubble(
+                            key: ValueKey(p.id),
+                            player: p,
+                            index: index,
+                            isHost: false,
+                            isMe: isMe,
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -294,6 +527,44 @@ class _JamHoodPlayerPageState extends State<JamHoodPlayerPage> {
               'Menunggu pemain lain & waktu habis...',
               style: TextStyle(color: Colors.white70, fontSize: 16),
             ),
+            const SizedBox(height: 14),
+            ValueListenableBuilder<int>(
+              valueListenable: _secondsRemainingNotifier,
+              builder: (context, seconds, _) {
+                final isUrgent = seconds <= 5;
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                  decoration: BoxDecoration(
+                    color: isUrgent
+                        ? const Color(0xFFE21B3C).withOpacity(0.3)
+                        : Colors.white.withOpacity(0.12),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: isUrgent ? const Color(0xFFFF5252) : Colors.white24,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.timer_outlined,
+                        size: 16,
+                        color: isUrgent ? const Color(0xFFFF5252) : Colors.white70,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Sisa waktu: $seconds dtk',
+                        style: TextStyle(
+                          color: isUrgent ? const Color(0xFFFF8A80) : Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
             if (lockedChoice != null &&
                 q != null &&
                 lockedChoice >= 0 &&
@@ -325,14 +596,71 @@ class _JamHoodPlayerPageState extends State<JamHoodPlayerPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Soal ${room.currentQuestionIndex + 1} / ${room.totalQuestions}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+              // Top Question Header Row with Question number and Countdown Timer
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      'Soal ${room.currentQuestionIndex + 1} / ${room.totalQuestions}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ValueListenableBuilder<int>(
+                    valueListenable: _secondsRemainingNotifier,
+                    builder: (context, seconds, _) {
+                      final isUrgent = seconds <= 5;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: isUrgent ? const Color(0xFFE21B3C) : const Color(0xFF46178F),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: isUrgent ? const Color(0xFFFF5252) : Colors.white38,
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: (isUrgent ? const Color(0xFFE21B3C) : const Color(0xFF46178F))
+                                  .withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.timer_outlined,
+                              size: 16,
+                              color: isUrgent ? Colors.white : const Color(0xFFFFA602),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              '$seconds',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
 

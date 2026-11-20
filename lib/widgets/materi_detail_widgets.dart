@@ -67,11 +67,12 @@ class MateriDetailAppBar extends StatelessWidget implements PreferredSizeWidget 
       ],
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             number,
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
               color: Color(0xFF0284C7),
               letterSpacing: 0.5,
@@ -79,8 +80,10 @@ class MateriDetailAppBar extends StatelessWidget implements PreferredSizeWidget 
           ),
           Text(
             title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w700,
               color: Color(0xFF0F172A),
             ),
@@ -92,6 +95,7 @@ class MateriDetailAppBar extends StatelessWidget implements PreferredSizeWidget 
           : PreferredSize(
               preferredSize: const Size.fromHeight(49),
               child: Container(
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
@@ -99,6 +103,9 @@ class MateriDetailAppBar extends StatelessWidget implements PreferredSizeWidget 
                 ),
                 child: TabBar(
                   controller: controller,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 16),
                   labelColor: const Color(0xFF0284C7),
                   unselectedLabelColor: const Color(0xFF64748B),
                   indicatorColor: const Color(0xFF0284C7),

@@ -10,7 +10,11 @@ import '../widgets/materi_detail_widgets.dart';
 /// `NetworkAssetBundle`. Mobile builds read the bare asset key instead.
 String _resolveModelAssetSrc(String assetKey) {
   if (!kIsWeb) return assetKey;
-  return Uri.base.resolve('assets/$assetKey').toString();
+  final uri = Uri.base;
+  final path = uri.path.endsWith('/') ? uri.path : '${uri.path}/';
+  final cleanBase = uri.replace(path: path, query: '', fragment: '');
+  final cleanKey = assetKey.startsWith('assets/') ? assetKey : 'assets/$assetKey';
+  return cleanBase.resolve(cleanKey).toString();
 }
 
 class PembelajaranDetailPage extends StatefulWidget {
@@ -109,10 +113,11 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
   // TAB 1: MATERI LENGKAP & SISTEMATIS
   // -------------------------------------------------------------
   Widget _buildMateriTab(bool isDesktop) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 48 : 20,
-        vertical: 28,
+        horizontal: isDesktop ? 48 : (screenWidth < 400 ? 14 : 20),
+        vertical: 24,
       ),
       child: Center(
         child: ConstrainedBox(
@@ -160,9 +165,10 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
   }
 
   Widget _buildHeaderBanner() {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(28),
+      padding: EdgeInsets.all(screenWidth < 400 ? 16 : 24),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(20),
@@ -218,21 +224,21 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             "Pemodelan 2D & 3D Bangunan Gedung Berbasis BIM",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 26,
+              fontSize: screenWidth < 400 ? 20 : 26,
               fontWeight: FontWeight.w800,
               height: 1.3,
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             "Menguasai pemahaman gambar 2D & 3D elemen struktur, arsitektur, interior, dan eksterior gedung rumah sederhana dan bertingkat dengan integrasi teknologi Building Information Modelling.",
             style: TextStyle(
-              color: Color(0xFF94A3B8),
-              fontSize: 15,
+              color: const Color(0xFF94A3B8),
+              fontSize: screenWidth < 400 ? 13.5 : 15,
               height: 1.6,
             ),
           ),
@@ -809,14 +815,18 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
   // TAB 2: MODEL 3D INTERAKTIF
   // -------------------------------------------------------------
   Widget _build3DModelTab(bool isDesktop) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final String glbSrc = _resolveModelAssetSrc(
       "assets/glb/cp1/low_poly_house_3.glb",
+    );
+    final String usdzSrc = _resolveModelAssetSrc(
+      "assets/glb/cp1/low_poly_house_3.usdz",
     );
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 48 : 20,
-        vertical: 28,
+        horizontal: isDesktop ? 48 : (screenWidth < 400 ? 14 : 20),
+        vertical: 24,
       ),
       child: Center(
         child: ConstrainedBox(
@@ -826,7 +836,7 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
             children: [
               // Header description
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(screenWidth < 400 ? 14 : 20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -835,32 +845,37 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: EdgeInsets.all(screenWidth < 400 ? 10 : 12),
                       decoration: BoxDecoration(
                         color: const Color(0xFF0284C7).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(Icons.view_in_ar,
-                          color: Color(0xFF0284C7), size: 28),
+                      child: Icon(
+                        Icons.view_in_ar,
+                        color: const Color(0xFF0284C7),
+                        size: screenWidth < 400 ? 24 : 28,
+                      ),
                     ),
-                    const SizedBox(width: 16),
-                    const Expanded(
+                    const SizedBox(width: 14),
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Eksplorasi 3D Model: Rumah Hunian Sederhana",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: screenWidth < 400 ? 16 : 18,
                               fontWeight: FontWeight.w700,
-                              color: Color(0xFF0F172A),
+                              color: const Color(0xFF0F172A),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "Putar, perbesar (zoom), dan amati hubungan massa atap, dinding eksterior, jendela, dan pintu pada model 3D di bawah ini.",
                             style: TextStyle(
-                                fontSize: 14, color: Color(0xFF64748B)),
+                              fontSize: screenWidth < 400 ? 13 : 14,
+                              color: const Color(0xFF64748B),
+                            ),
                           ),
                         ],
                       ),
@@ -872,7 +887,7 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
 
               // 3D Viewer Container
               Container(
-                height: isDesktop ? 520 : 380,
+                height: isDesktop ? 520 : (screenWidth < 400 ? 330 : 380),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color(0xFF0F172A),
@@ -891,6 +906,7 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
                   children: [
                     ModelViewer(
                       src: glbSrc,
+                      iosSrc: usdzSrc,
                       alt: "3D Model Rumah Hunian Sederhana CP1",
                       ar: true,
                       arModes: const ['webxr', 'scene-viewer', 'quick-look'],
@@ -902,8 +918,8 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
                     ),
                     // Floating Badge
                     Positioned(
-                      top: 16,
-                      left: 16,
+                      top: 14,
+                      left: 14,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 6),
@@ -916,13 +932,13 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.touch_app_outlined,
-                                color: Colors.white, size: 16),
+                                color: Colors.white, size: 15),
                             SizedBox(width: 6),
                             Text(
                               "Sentuh & Tarik untuk Memutar",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: 11.5,
                                   fontWeight: FontWeight.w500),
                             ),
                           ],
@@ -1004,10 +1020,11 @@ class _PembelajaranDetailPageState extends State<PembelajaranDetailPage>
   // TAB 3: GALERI GAMBAR TEKNIS
   // -------------------------------------------------------------
   Widget _buildGaleriTab(bool isDesktop) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 48 : 20,
-        vertical: 28,
+        horizontal: isDesktop ? 48 : (screenWidth < 400 ? 14 : 20),
+        vertical: 24,
       ),
       child: Center(
         child: ConstrainedBox(

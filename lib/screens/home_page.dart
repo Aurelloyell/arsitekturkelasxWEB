@@ -41,7 +41,11 @@ class _HomePageState extends State<HomePage> {
                       horizontal: isDesktop ? 40.0 : (isTablet ? 24.0 : 16.0),
                       vertical: isDesktop ? 28.0 : 18.0,
                     ),
-                    child: _buildHeroDisplayBackground(context, isDesktop, isTablet),
+                    child: _buildHeroDisplayBackground(
+                      context,
+                      isDesktop,
+                      isTablet,
+                    ),
                   ),
                 ),
               ),
@@ -72,28 +76,30 @@ class _HomePageState extends State<HomePage> {
 
   // ===================== TOP NAVIGATION =====================
   Widget _buildTopNav(BuildContext context, bool isDesktop, bool isTablet) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1)),
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1240),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 40.0 : (isTablet ? 24.0 : 16.0),
-              vertical: 14.0,
+              horizontal: isDesktop
+                  ? 40.0
+                  : (isTablet ? 24.0 : (screenWidth < 380 ? 12.0 : 16.0)),
+              vertical: 12.0,
             ),
             child: Row(
               children: [
                 // Brand logo + text
                 Container(
-                  width: 38,
-                  height: 38,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xFF0F172A), Color(0xFF0284C7)],
@@ -117,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -128,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                           TextSpan(
                             text: "ARsitektur ",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFF0F172A),
                               letterSpacing: -0.5,
@@ -137,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                           TextSpan(
                             text: "X",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFF0284C7),
                               letterSpacing: -0.5,
@@ -146,14 +152,15 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    const Text(
-                      "Media Pembelajaran Interaktif",
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF64748B),
+                    if (screenWidth >= 360)
+                      const Text(
+                        "Media Pembelajaran Interaktif",
+                        style: TextStyle(
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF64748B),
+                        ),
                       ),
-                    ),
                   ],
                 ),
                 const Spacer(),
@@ -165,21 +172,32 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(20),
                     onTap: _toggleMute,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: _isMuted ? const Color(0xFFF1F5F9) : const Color(0xFFE0F2FE),
+                        color: _isMuted
+                            ? const Color(0xFFF1F5F9)
+                            : const Color(0xFFE0F2FE),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: _isMuted ? const Color(0xFFCBD5E1) : const Color(0xFFBAE6FD),
+                          color: _isMuted
+                              ? const Color(0xFFCBD5E1)
+                              : const Color(0xFFBAE6FD),
                         ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            _isMuted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                            _isMuted
+                                ? Icons.volume_off_rounded
+                                : Icons.volume_up_rounded,
                             size: 16,
-                            color: _isMuted ? const Color(0xFF64748B) : const Color(0xFF0284C7),
+                            color: _isMuted
+                                ? const Color(0xFF64748B)
+                                : const Color(0xFF0284C7),
                           ),
                           if (isDesktop) ...[
                             const SizedBox(width: 6),
@@ -188,7 +206,9 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
-                                color: _isMuted ? const Color(0xFF64748B) : const Color(0xFF0284C7),
+                                color: _isMuted
+                                    ? const Color(0xFF64748B)
+                                    : const Color(0xFF0284C7),
                               ),
                             ),
                           ],
@@ -197,11 +217,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 8),
 
                 // Status Pill
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(20),
@@ -211,18 +234,20 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: 8,
-                        height: 8,
+                        width: 7,
+                        height: 7,
                         decoration: const BoxDecoration(
                           color: Color(0xFF10B981),
                           shape: BoxShape.circle,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 6),
                       Text(
-                        isDesktop ? "Fase F • Kurikulum Merdeka" : "Fase F DPIB",
+                        isDesktop
+                            ? "Fase F • Kurikulum Merdeka"
+                            : (screenWidth < 380 ? "Fase F" : "Fase F DPIB"),
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 11.5,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF334155),
                         ),
@@ -240,7 +265,12 @@ class _HomePageState extends State<HomePage> {
 
   // ===================== HERO DISPLAY BACKGROUND =====================
   Widget _buildHeroDisplayBackground(
-      BuildContext context, bool isDesktop, bool isTablet) {
+    BuildContext context,
+    bool isDesktop,
+    bool isTablet,
+  ) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return RepaintBoundary(
       child: TweenAnimationBuilder<double>(
         tween: Tween<double>(begin: 0.0, end: 1.0),
@@ -342,18 +372,25 @@ class _HomePageState extends State<HomePage> {
                 // Foreground Content
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: isDesktop ? 52.0 : (isTablet ? 36.0 : 22.0),
-                    vertical: isDesktop ? 48.0 : (isTablet ? 38.0 : 28.0),
+                    horizontal: isDesktop
+                        ? 52.0
+                        : (isTablet ? 36.0 : (screenWidth < 400 ? 16.0 : 22.0)),
+                    vertical: isDesktop ? 48.0 : (isTablet ? 38.0 : 24.0),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Top Status Pill
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(30),
@@ -361,38 +398,54 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white.withValues(alpha: 0.22),
                               ),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.layers_rounded, size: 15, color: Color(0xFF38BDF8)),
-                                SizedBox(width: 8),
+                                const Icon(
+                                  Icons.layers_rounded,
+                                  size: 14,
+                                  color: Color(0xFF38BDF8),
+                                ),
+                                const SizedBox(width: 7),
                                 Text(
-                                  "SMK DPIB • DESAIN PEMODELAN INFORMASI BANGUNAN",
-                                  style: TextStyle(
+                                  screenWidth < 420
+                                      ? "SMK DPIB • PEMODELAN BANGUNAN"
+                                      : "SMK DPIB • DESAIN PEMODELAN INFORMASI BANGUNAN",
+                                  style: const TextStyle(
                                     color: Color(0xFFE2E8F0),
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
-                                    letterSpacing: 0.6,
+                                    letterSpacing: 0.4,
                                   ),
                                 ),
                               ],
                             ),
                           ),
                           if (isDesktop) ...[
-                            const SizedBox(width: 12),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 7,
+                              ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF38BDF8).withValues(alpha: 0.15),
+                                color: const Color(
+                                  0xFF38BDF8,
+                                ).withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
-                                  color: const Color(0xFF38BDF8).withValues(alpha: 0.3),
+                                  color: const Color(
+                                    0xFF38BDF8,
+                                  ).withValues(alpha: 0.3),
                                 ),
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.view_in_ar_rounded, size: 14, color: Color(0xFF38BDF8)),
+                                  Icon(
+                                    Icons.view_in_ar_rounded,
+                                    size: 14,
+                                    color: Color(0xFF38BDF8),
+                                  ),
                                   SizedBox(width: 6),
                                   Text(
                                     "3D BIM Parametric Ready",
@@ -409,19 +462,25 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ],
                       ),
-                      const SizedBox(height: 22),
+                      const SizedBox(height: 20),
 
                       // Headline
                       ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: isDesktop ? 760 : double.infinity),
+                        constraints: BoxConstraints(
+                          maxWidth: isDesktop ? 760 : double.infinity,
+                        ),
                         child: Text(
                           "Kuasai Desain & Pemodelan Bangunan Berbasis BIM",
                           style: TextStyle(
-                            fontSize: isDesktop ? 44 : (isTablet ? 34 : 27),
+                            fontSize: isDesktop
+                                ? 44
+                                : (isTablet
+                                      ? 34
+                                      : (screenWidth < 380 ? 23 : 26)),
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
                             height: 1.18,
-                            letterSpacing: -0.8,
+                            letterSpacing: -0.6,
                             shadows: [
                               Shadow(
                                 color: Colors.black.withValues(alpha: 0.4),
@@ -432,32 +491,38 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 14),
 
                       // Subtitle
                       ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: isDesktop ? 680 : double.infinity),
+                        constraints: BoxConstraints(
+                          maxWidth: isDesktop ? 680 : double.infinity,
+                        ),
                         child: Text(
                           "Pelajari teknik pemodelan arsitektur 2D, visualisasi 3D parametrik, konstruksi jalan & jembatan, hingga pengujian pemahaman melalui kuis interaktif secara komprehensif.",
                           style: TextStyle(
-                            fontSize: isDesktop ? 16 : 14.5,
+                            fontSize: isDesktop
+                                ? 16
+                                : (screenWidth < 380 ? 13.5 : 14.5),
                             color: const Color(0xFFCBD5E1),
-                            height: 1.6,
+                            height: 1.55,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 34),
+                      const SizedBox(height: 28),
 
                       // Action Buttons
                       ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: isDesktop ? 680 : double.infinity),
+                        constraints: BoxConstraints(
+                          maxWidth: isDesktop ? 680 : double.infinity,
+                        ),
                         child: _buildActionButtons(context, isDesktop),
                       ),
 
-                      const SizedBox(height: 34),
+                      const SizedBox(height: 28),
                       const Divider(color: Color(0x2BFFFFFF), height: 1),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 18),
 
                       // Quick Highlights inside the Display Banner
                       _buildHeroQuickBadges(isDesktop, isTablet),
@@ -518,11 +583,17 @@ class _HomePageState extends State<HomePage> {
     if (isDesktop) {
       return Row(
         children: [
-          Expanded(child: SizedBox(height: buttonHeight, child: primaryBtn)),
+          Expanded(
+            child: SizedBox(height: buttonHeight, child: primaryBtn),
+          ),
           const SizedBox(width: 14),
-          Expanded(child: SizedBox(height: buttonHeight, child: secondaryBtn)),
+          Expanded(
+            child: SizedBox(height: buttonHeight, child: secondaryBtn),
+          ),
           const SizedBox(width: 14),
-          Expanded(child: SizedBox(height: buttonHeight, child: quizBtn)),
+          Expanded(
+            child: SizedBox(height: buttonHeight, child: quizBtn),
+          ),
         ],
       );
     } else {
@@ -597,7 +668,10 @@ class _HomePageState extends State<HomePage> {
 
   // ===================== FEATURE HIGHLIGHTS =====================
   Widget _buildFeaturesSection(
-      BuildContext context, bool isDesktop, bool isTablet) {
+    BuildContext context,
+    bool isDesktop,
+    bool isTablet,
+  ) {
     final features = [
       _FeatureData(
         icon: Icons.view_in_ar_rounded,
@@ -627,14 +701,14 @@ class _HomePageState extends State<HomePage> {
         children: features
             .asMap()
             .entries
-            .map((entry) => Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: _SmoothFeatureCard(
-                      data: entry.value,
-                    ),
-                  ),
-                ))
+            .map(
+              (entry) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: _SmoothFeatureCard(data: entry.value),
+                ),
+              ),
+            )
             .toList(),
       );
     } else {
@@ -642,12 +716,12 @@ class _HomePageState extends State<HomePage> {
         children: features
             .asMap()
             .entries
-            .map((entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: _SmoothFeatureCard(
-                    data: entry.value,
-                  ),
-                ))
+            .map(
+              (entry) => Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: _SmoothFeatureCard(data: entry.value),
+              ),
+            )
             .toList(),
       );
     }
@@ -660,9 +734,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.symmetric(vertical: 24),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          top: BorderSide(color: Color(0xFFE2E8F0), width: 1),
-        ),
+        border: Border(top: BorderSide(color: Color(0xFFE2E8F0), width: 1)),
       ),
       child: const Center(
         child: Text(
@@ -750,7 +822,11 @@ class _SmoothHeroButtonState extends State<_SmoothHeroButton> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(widget.icon, color: widget.foregroundColor, size: 20),
+                      Icon(
+                        widget.icon,
+                        color: widget.foregroundColor,
+                        size: 20,
+                      ),
                       const SizedBox(width: 10),
                       Flexible(
                         child: Text(
@@ -781,9 +857,7 @@ class _SmoothHeroButtonState extends State<_SmoothHeroButton> {
 class _SmoothFeatureCard extends StatefulWidget {
   final _FeatureData data;
 
-  const _SmoothFeatureCard({
-    required this.data,
-  });
+  const _SmoothFeatureCard({required this.data});
 
   @override
   State<_SmoothFeatureCard> createState() => _SmoothFeatureCardState();
@@ -838,7 +912,11 @@ class _SmoothFeatureCardState extends State<_SmoothFeatureCard> {
                     color: widget.data.badgeColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(widget.data.icon, color: widget.data.badgeColor, size: 24),
+                  child: Icon(
+                    widget.data.icon,
+                    color: widget.data.badgeColor,
+                    size: 24,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
